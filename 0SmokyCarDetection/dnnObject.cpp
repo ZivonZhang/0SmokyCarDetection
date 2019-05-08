@@ -337,6 +337,7 @@ Rect dnnObject::getCarRear(Rect carbox)
 
 Mat dnnObject::RectToMat(Rect rect,Mat frame) {
 		;
+		return frame;
 }
 void dnnObject::efficiencyInformation(Mat &frame)
 {
