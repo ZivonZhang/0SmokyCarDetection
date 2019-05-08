@@ -6,35 +6,8 @@
 //#include "dirent.h"
 
 #define SaveVideo
-int main2()
-{
+constexpr bool DISPLAY = 0;//是否显示的开关
 
-	char * src_path = "E:\\video-1004";
-	std::vector<std::string> fileNames;
-	std::string fullVideoName;//文件名带后缀
-	std::string srcVideoFullPath;//原视频全路径
-	std::string srcVideoName;//文件名不带后传
-
-	////获取该路径下的所有文件  
-	getFiles(src_path, fileNames);
-
-	for (int i = 0; i < fileNames.size(); i++)
-	{
-		//std::cout << fileNames[i].c_str() << std::endl;
-		
-		getTime();
-		std::vector<std::string> result = split(fileNames[i].c_str(), "\\");
-		fullVideoName = result[result.size()-1];
-		srcVideoFullPath = fileNames[i].c_str();
-		std::cout << "视频:" << fullVideoName << std::endl;
-		std::cout << "视频完整路径:" << srcVideoFullPath << std::endl;
-		result.clear();
-		result = split(fullVideoName, ".");
-		srcVideoName = result[0];
-		std::cout << "剪切的视频名:" << srcVideoName << std::endl;
-	}
-	return 0;
-}
 
 int main(int argc, char** argv)
 {
@@ -56,8 +29,7 @@ int main(int argc, char** argv)
 	
 	// Create a window
 	static const std::string kWinName = "Smoky Car Detection";
-	namedWindow(kWinName, WINDOW_NORMAL);
-
+	if (DISPLAY) namedWindow(kWinName, WINDOW_NORMAL);
 
 	std::vector<std::string> fileNames;
 	std::string fullVideoName;//文件名带后缀
@@ -98,14 +70,14 @@ int main(int argc, char** argv)
 		int videoNum = 1; // 输出视频的顺序
 		std::string outVideoName = ResultPath + "\\" + srcVideoName + "\\" + objDetecMethod+ ".avi";
 		writer.open(outVideoName, VideoWriter::fourcc('D', 'I', 'V', 'X'), 25.0, Size(nCols, nRows)); //VideoWriter::fourcc('D', 'I', 'V', 'X')
-
 #endif
 																								  // Process frames.
 		bool isCatch = false;  // 标记是否识别出黑烟车
 		int frameNumber = 0;  // 统计帧数
 		Mat frame;
-		while (waitKey(1) < 0) 
+		while (1) 
 		{
+			if (DISPLAY) waitKey(1);//显示用
 			cap >> frame;
 			if (frame.empty())
 			{
@@ -125,7 +97,7 @@ int main(int argc, char** argv)
 			for (int i = 0; i < rectTrucksRear.size(); i++)
 			{
 				Mat tmp = frame(rectTrucksRear[i]);
-				imshow("tmp", tmp);
+				if(DISPLAY) imshow("tmp", tmp);
 				smokyClassfy.classify(tmp, res, classConfid);
 				if (res == 1)
 				{
@@ -173,8 +145,7 @@ int main(int argc, char** argv)
 				}
 			}
 #endif 
-
-			imshow(kWinName, frame);
+			if(DISPLAY) imshow(kWinName, frame);
 		}
 #ifdef SaveVideo
 		writer.release();
