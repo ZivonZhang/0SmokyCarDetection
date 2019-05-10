@@ -239,7 +239,7 @@ void dnnObject::getTrucksRear(Mat &frame, std::vector<Rect> &out_rects) {
 		if (classes[classIds[idx]] == "trucks") {//如果为货车，检测尾部								
 			Rect rect1, rect2;
 			rect1 = box;  // 轮廓外接矩形
-			rect1.height = rect1.height * 1.2;  //rect1拉长包括黑烟检测区域
+			//rect1.height = rect1.height * 1.2;  //rect1拉长包括黑烟检测区域
 												//carRects.push_back(rect1);
 			Point p1, p2, p3;
 			p1.x = rect1.x;
@@ -260,7 +260,7 @@ void dnnObject::getTrucksRear(Mat &frame, std::vector<Rect> &out_rects) {
 																																														  //if(1)
 					{
 						rect2.x = p3.x;
-						rect2.y = rect1.y + 0.65 * rect1.height;
+						rect2.y = rect1.y + 0.7 * rect1.height;
 
 						rect2.width = rect1.width;
 						rect2.height = rect1.height / 2;
