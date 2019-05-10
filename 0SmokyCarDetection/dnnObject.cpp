@@ -237,9 +237,8 @@ void dnnObject::getTrucksRear(Mat &frame, std::vector<Rect> &out_rects) {
 		int idx = indices[i];
 		Rect box = boxes[idx];
 		if (classes[classIds[idx]] == "trucks") {//如果为货车，检测尾部								
-			Rect rect1, rect2, rect3;//rect3将传回用于车型检测
+			Rect rect1, rect2;
 			rect1 = box;  // 轮廓外接矩形
-			rect3 = rect1;
 			rect1.height = rect1.height * 1.2;  //rect1拉长包括黑烟检测区域
 												//carRects.push_back(rect1);
 			Point p1, p2, p3;
@@ -261,7 +260,7 @@ void dnnObject::getTrucksRear(Mat &frame, std::vector<Rect> &out_rects) {
 																																														  //if(1)
 					{
 						rect2.x = p3.x;
-						rect2.y = rect1.y + rect1.height / 2;
+						rect2.y = rect1.y + 0.65 * rect1.height;
 
 						rect2.width = rect1.width;
 						rect2.height = rect1.height / 2;
@@ -269,6 +268,7 @@ void dnnObject::getTrucksRear(Mat &frame, std::vector<Rect> &out_rects) {
 						{
 							//car_rects.push_back(rect3);//车型识别区域
 							//out_images.push_back(src(rect2));
+							if ((rect2.y + rect2.height) > frame.rows) continue;//防止框到外面
 							out_rects.push_back(rect2);
 							//rectangle(src, rect3, Scalar(0, 255, 255), 1);//画框
 						}
