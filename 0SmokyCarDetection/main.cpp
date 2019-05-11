@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 {
 	Method method;
 	std::string SrcPath = "E:\\video-1004";
-	std::string ResultPath = "F:\\Result";
+	std::string ResultPath = "D:\\Result";
 	//std::string inputVideo = findFile("E:/2018-10-02_170017.mp4");
 
 	std::string objDetecMethod = "mobileNet_SSD"; //"Yolo_tiny_416_N23";
