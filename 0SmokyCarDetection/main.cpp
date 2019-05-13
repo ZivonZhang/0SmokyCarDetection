@@ -110,12 +110,10 @@ int main(int argc, char** argv)
 			carDetection.afterprocess(frame);
 			if(DISPLAY) carDetection.efficiencyInformation(frame);
 
-
-			if(frameSave.size() > 40)  frameSave.pop();//黑烟车短视频
-			frameSave.push(frame.clone());
-
-
 #ifdef SaveVideo
+
+			cv::resize(frame, frame, Size(nCols, nRows));
+
 			if (frameSave.size() > 40)  frameSave.pop();//黑烟车短视频
 			frameSave.push(frame.clone());
 			writer << frame;
