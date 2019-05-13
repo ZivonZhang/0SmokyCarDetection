@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 	std::string objDetecMethod = "mobileNet_SSD"; //"Yolo_tiny_416_N23";
 	std::string imgClassifyMethod = "original version";
 
-	int nCols = 1024; //1280;// 输入视频resize，保存视频也是这个尺寸
+	int nCols = 1024; //1280;// 保存视频尺寸
 	int	nRows = 768; //720;// 
 
 	dnnObject carDetection(objDetecMethod);
@@ -84,7 +84,6 @@ int main(int argc, char** argv)
 				break;
 			}
 			frameNumber++; // 帧数更新
-			resize(frame, frame, Size(nCols, nRows));
 
 			carDetection.run(frame);
 			carDetection.postprocess(frame);
@@ -102,10 +101,10 @@ int main(int argc, char** argv)
 				if (res == 1)
 				{
 					method.judgeSomkeCars(frame, rectTrucksRear[i], frameNumber, isCatch);
-					rectangle(frame, rectTrucksRear[i], Scalar(0, 0, 255), 2);//在frame上也画框
+					rectangle(frame, rectTrucksRear[i], Scalar(0, 0, 255), 2);//在frame上画红框
 				}
 				else {
-					rectangle(frame, rectTrucksRear[i], Scalar(0, 255, 255), 1);//在frame上也画框
+					rectangle(frame, rectTrucksRear[i], Scalar(0, 255, 255), 2);//在frame上也画黄框
 				}
 			}
 			carDetection.afterprocess(frame);

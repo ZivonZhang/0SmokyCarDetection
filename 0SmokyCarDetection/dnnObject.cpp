@@ -263,15 +263,15 @@ void dnnObject::getTrucksRear(Mat &frame, std::vector<Rect> &out_rects) {
 						rect2.y = rect1.y + 0.7 * rect1.height;
 
 						rect2.width = rect1.width;
-						rect2.height = rect1.height / 2;
-						if (((rect2.width / rect2.height) < 2) && ((rect2.height / rect2.width) < 2))
+						//rect2.height = rect1.height / 2;
+						rect2.height = rect2.width;//取方形区域
+						if ((rect2.y + rect2.height) > frame.rows)//防止框到外面
 						{
-							//car_rects.push_back(rect3);//车型识别区域
-							//out_images.push_back(src(rect2));
-							if ((rect2.y + rect2.height) > frame.rows) continue;//防止框到外面
-							out_rects.push_back(rect2);
-							//rectangle(src, rect3, Scalar(0, 255, 255), 1);//画框
+							//rect2.height = frame.rows - rect2.y - 1;   //扁的也送入检测
+							continue;//直接舍弃这个框
 						}
+						out_rects.push_back(rect2);
+							//rectangle(src, rect3, Scalar(0, 255, 255), 1);//画框
 					}
 				}
 
