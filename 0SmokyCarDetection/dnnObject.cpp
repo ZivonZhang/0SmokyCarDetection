@@ -270,6 +270,11 @@ void dnnObject::getTrucksRear(Mat &frame, std::vector<Rect> &out_rects) {
 							//rect2.height = frame.rows - rect2.y - 1;   //扁的也送入检测
 							continue;//直接舍弃这个框
 						}
+						if (rect2.y  < 0.14*frame.rows)//碰到上方文字则不检测
+						{
+							//rect2.height = frame.rows - rect2.y - 1;   //扁的也送入检测
+							continue;//直接舍弃这个框
+						}
 						out_rects.push_back(rect2);
 							//rectangle(src, rect3, Scalar(0, 255, 255), 1);//画框
 					}
