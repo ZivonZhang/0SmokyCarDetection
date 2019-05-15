@@ -251,7 +251,6 @@ void dnnObject::getTrucksRear(Mat &frame, std::vector<Rect> &out_rects) {
 			//p3.y = rect1.y + rect1.height / 4 * 3;
 			p3.y = rect1.y + rect1.height / 2;   //p3为rect2左上角
 
-
 												 //if (rect1.width>=65)
 			if ((rect1.width >= 50) && (rect1.height >= 50))//50   
 				if (p1.x - 5 > 0 && p1.y - 5 > 0 && p2.x + 5 < frame.cols && p2.y + 5 < frame.rows)
@@ -295,7 +294,7 @@ std::vector<int> dnnObject::getCar()
 
 void dnnObject::drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat & frame)
 {
-	rectangle(frame, Point(left, top), Point(right, bottom), Scalar(0, 255, 0), 2);//车辆框
+	rectangle(frame, Point(left, top), Point(right, bottom), Scalar(0, 255, 0), 3);//绿色车辆框
 
 	std::string label = format("%.2f", conf);
 	if (!classes.empty())
@@ -342,7 +341,7 @@ Rect dnnObject::getCarRear(Rect carbox)
 
 Mat dnnObject::RectToMat(Rect rect,Mat frame) {
 		;
-		return frame;
+		return frame(rect);
 }
 void dnnObject::efficiencyInformation(Mat &frame)
 {

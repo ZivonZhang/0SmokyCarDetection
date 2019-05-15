@@ -7,7 +7,7 @@
 
 #define SaveVideo
 constexpr bool DISPLAY = 0;//是否显示的开关
-
+constexpr bool SAMPLE = 0;//是否获取样本的开关
 
 int main(int argc, char** argv)
 {
@@ -39,6 +39,7 @@ int main(int argc, char** argv)
 
 	////获取该源路径下的所有文件  
 	getFiles(SrcPath, fileNames);
+	std::cout << "将处理的视频个数:" << fileNames.size() << std::endl;
 	for (int i = 0; i < fileNames.size(); i++)
 	{
 		getTime();
@@ -101,25 +102,22 @@ int main(int argc, char** argv)
 				if (res == 1)
 				{
 					method.judgeSomkeCars(frame, rectTrucksRear[i], frameNumber, isCatch);
-					rectangle(frame, rectTrucksRear[i], Scalar(0, 0, 255), 2);//在frame上画红框
+					rectangle(frame, rectTrucksRear[i], Scalar(0, 0, 255), 3);//在frame上画红框
 				}
 				else {
-					rectangle(frame, rectTrucksRear[i], Scalar(0, 255, 255), 2);//在frame上也画黄框
+					rectangle(frame, rectTrucksRear[i], Scalar(0, 255, 255), 3);//在frame上也画黄框
 				}
 			}
 			carDetection.afterprocess(frame);
 			if(DISPLAY) carDetection.efficiencyInformation(frame);
 
 #ifdef SaveVideo
-
 			cv::resize(frame, frame, Size(nCols, nRows));
 
 			if (frameSave.size() > 40)  frameSave.pop();//黑烟车短视频
 			frameSave.push(frame.clone());
 			writer << frame;
 			// 生成视频
-
-
 			if (isCatch == true)
 			{
 				static int videoFrames = 0;
@@ -137,8 +135,6 @@ int main(int argc, char** argv)
 					isCatch = false;
 					videoFrames = 0;
 					videoNum++;
-					//sprintf(file, "resultVideo/blackCar%d.avi", videoNum);
-					//writer.open(file, CV_FOURCC('M', 'J', 'P', 'G'), 25.0, Size(frameWidth, frameHeight));
 				}
 			}
 #endif 
