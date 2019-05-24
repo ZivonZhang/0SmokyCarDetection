@@ -5,8 +5,8 @@
 dnnClassification::dnnClassification(std::string method)
 {
 	if (method == "original version") {
-		model = findFile("F:/Nets/net_iter_30.caffemodel");
-		config = findFile("F:/Nets/deploy.prototxt");
+		model = findFile("F:/0SmokyCarDetection/model/net_iter_30.caffemodel");
+		config = findFile("F:/0SmokyCarDetection/model/deploy.prototxt");
 
 		scale = 1.0;
 		mean = { 0, 0, 0 };
@@ -14,6 +14,27 @@ dnnClassification::dnnClassification(std::string method)
 		inpWidth = 100;
 		inpHeight = 100;
 	}
+	if (method == "CatsDogs190524") {
+		model = findFile("F:/0SmokyCarDetection/model/catdognet_solver_iter_400.caffemodel");
+		config = findFile("F:/0SmokyCarDetection/model/catdognet_deploy.prototxt");
+
+		scale = 1.0;
+		mean = { 0, 0, 0 };
+		swapRB = false;
+		inpWidth = 100;
+		inpHeight = 100;
+	}
+	if (method == "Resnet190524") {
+		model = findFile("F:/0SmokyCarDetection/model/ResNet-18-solver_iter_400.caffemodel");
+		config = findFile("F:/0SmokyCarDetection/model/ResNet-18-deploy.prototxt");
+
+		scale = 1.0;
+		mean = { 0, 0, 0 };
+		swapRB = false;
+		inpWidth = 100;
+		inpHeight = 100;
+	}
+
 
 	if (!classesFile.empty())	// Open file with classes names.
 	{
