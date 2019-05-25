@@ -144,6 +144,7 @@ int main(int argc, char** argv)
 		}
 #ifdef SaveVideo
 		writer.release();
+		std::cout << "目前检测到的黑烟车数量" << method.getBlackCarNum() << std::endl;
 #endif 
 	}
 	return 0;
