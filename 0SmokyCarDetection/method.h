@@ -22,6 +22,7 @@ public:
 	int out_count = 0;  //输出的车尾部图片的编号
 	char file_name[100];
 	int trunkNum = 0;
+	int ContinuityThreshold = 10;
 
 private:
 	int count = 0; // 记录没发生变化的图像的帧数

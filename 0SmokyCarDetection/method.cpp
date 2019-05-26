@@ -31,7 +31,7 @@ void Method::judgeSomkeCars(Mat &src, Rect &rect, int frameNum, bool &isCatch)
 		}
 	}
 
-	if (sameNum == 6)  // 实际为检测出六帧才认为是成功检测
+	if (sameNum == ContinuityThreshold)  // 实际为检测出六帧才认为是成功检测
 	{
 		std::cout << "发现一辆黑烟车" << std::endl;
 		isCatch = true;

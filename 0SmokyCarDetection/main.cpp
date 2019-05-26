@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 {
 	Method method;
 	std::pair<Backend,Target> p1 = (getAvailableBackends())[0];
-	std::cout << p1.first<< "   "<< p1.second<< std::endl;
+	std::cout << p1.first<< "   "<< p1.second<< std::endl; //这里可修改
 	std::string SrcPath = "E:\\video-1004";
 	std::string ResultPath = "D:\\Result";
 	//std::string inputVideo = findFile("E:/2018-10-02_170017.mp4");
@@ -28,6 +28,7 @@ int main(int argc, char** argv)
 	std::cout << objDetecMethod << "车型目标检测初始化  OK." << std::endl;
 	dnnClassification smokyClassfy(imgClassifyMethod);
 	std::cout << imgClassifyMethod << "黑烟分类初始化  OK." << std::endl;
+	std::cout <<  "连续性阈值设定为  " << method.ContinuityThreshold << std::endl;
 	
 	// Create a window
 	static const std::string kWinName = "Smoky Car Detection";
@@ -144,7 +145,7 @@ int main(int argc, char** argv)
 		}
 #ifdef SaveVideo
 		writer.release();
-		std::cout << "目前检测到的黑烟车数量" << method.getBlackCarNum() << std::endl;
+		std::cout << "目前检测到的黑烟车数量为 " << method.getBlackCarNum() << std::endl;
 #endif 
 	}
 	return 0;
