@@ -72,7 +72,8 @@ int main(int argc, char** argv)
 		VideoWriter smokyCarWriter;
 		std::queue<Mat> frameSave;//黑烟车短视频
 		int videoNum = 1; // 输出视频的顺序
-		std::string outVideoName = ResultPath + "\\" + srcVideoName + "\\" + objDetecMethod+ "-"+ imgClassifyMethod + ".avi";
+		std::string outVideoName = ResultPath + "\\" + srcVideoName + "\\" + objDetecMethod+ "-"
+			+ imgClassifyMethod +"-"+ std::to_string(method.ContinuityThreshold) + ".avi";
 		writer.open(outVideoName, VideoWriter::fourcc('D', 'I', 'V', 'X'), 25.0, Size(nCols, nRows)); //VideoWriter::fourcc('D', 'I', 'V', 'X')
 #endif
 																								  // Process frames.
