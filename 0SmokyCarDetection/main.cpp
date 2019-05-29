@@ -5,16 +5,19 @@
 //#include <filesystem>
 //#include "dirent.h"
 
-#define SaveVideo
+//#define SaveVideo
 constexpr bool DISPLAY = 0;//是否显示的开关
-constexpr bool SAMPLE = 0;//是否获取样本的开关
+constexpr int SAMPLE = 25;//获取样本的间隔帧
+constexpr bool RESIZE = 1;//是否RESIZE的开关
+constexpr int RESIZECOL = 100; //宽度
+constexpr int RESIZEROW = 100; //高度
 
 int main(int argc, char** argv)
 {
 	Method method;
 	std::pair<Backend,Target> p1 = (getAvailableBackends())[0];
 	std::cout << p1.first<< "   "<< p1.second<< std::endl; //这里可修改
-	std::string SrcPath = "E:\\video-1004";
+	std::string SrcPath = "E:\\video1";
 	std::string ResultPath = "D:\\Result";
 	//std::string inputVideo = findFile("E:/2018-10-02_170017.mp4");
 
@@ -28,10 +31,10 @@ int main(int argc, char** argv)
 	std::cout << objDetecMethod << "车型目标检测初始化  OK." << std::endl;
 	dnnClassification smokyClassfy(imgClassifyMethod);
 	std::cout << imgClassifyMethod << "黑烟分类初始化  OK." << std::endl;
-	std::cout <<  "连续性阈值设定为  " << method.ContinuityThreshold << std::endl;
+	//std::cout <<  "连续性阈值设定为  " << method.ContinuityThreshold << std::endl;
 	
 	// Create a window
-	static const std::string kWinName = "Smoky Car Detection";
+	static const std::string kWinName = "Smoky Car Sample Creater";
 	if (DISPLAY) namedWindow(kWinName, WINDOW_NORMAL);
 
 	std::vector<std::string> fileNames;
@@ -39,9 +42,13 @@ int main(int argc, char** argv)
 	std::string srcVideoFullPath;//原视频全路径
 	std::string srcVideoName;//文件名不带后传
 
+	int imgSmokyNum = 0;
+	int imgNonSmokyNum = 0;
+
 
 	////获取该源路径下的所有文件  
 	getFiles(SrcPath, fileNames);
+	if (RESIZE) std::cout << "样本将缩放到" << RESIZECOL << "," << RESIZEROW << std::endl;
 	std::cout << "将处理的视频个数:" << fileNames.size() << std::endl;
 	for (int i = 0; i < fileNames.size(); i++)
 	{
@@ -49,7 +56,7 @@ int main(int argc, char** argv)
 		std::vector<std::string> result = split(fileNames[i].c_str(), "\\");
 		fullVideoName = result[result.size() - 1];
 		srcVideoFullPath = fileNames[i].c_str();
-		std::cout << "视频:" << fullVideoName << std::endl;
+		//std::cout << "视频:" << fullVideoName << std::endl;
 		std::cout << "视频完整路径:" << srcVideoFullPath << std::endl;
 		result.clear();
 		result = split(fullVideoName, ".");
@@ -57,8 +64,12 @@ int main(int argc, char** argv)
 		std::cout << "剪切的视频名:" << srcVideoName << std::endl;
 
 		std::string FolderPath = ResultPath + "\\" + srcVideoName;
-		CreateDir(FolderPath.c_str());
+		std::string smokyFolderPath = ResultPath + "\\" + srcVideoName + "\\"+ std::to_string(1);
+		std::string nonsmokyFolderPath = ResultPath + "\\" + srcVideoName + "\\"+ std::to_string(0);
 
+		CreateDir(FolderPath.c_str());
+		CreateDir(smokyFolderPath.c_str());
+		CreateDir(nonsmokyFolderPath.c_str());
 		// Open a video file or an image file or a camera stream.
 		VideoCapture cap;
 		if (srcVideoFullPath != "") {
@@ -90,6 +101,8 @@ int main(int argc, char** argv)
 			}
 			frameNumber++; // 帧数更新
 
+			if (frameNumber % SAMPLE != 0) continue;
+
 			carDetection.run(frame);
 			carDetection.postprocess(frame);
 
@@ -103,16 +116,27 @@ int main(int argc, char** argv)
 				Mat tmp = frame(rectTrucksRear[i]);
 				if(DISPLAY) imshow("tmp", tmp);
 				smokyClassfy.classify(tmp, res, classConfid);
+				if (RESIZE) {
+					cv::resize(tmp, tmp, Size(RESIZECOL, RESIZEROW));  //RESIZE的大小设置处
+				}
 				if (res == 1)
 				{
-					method.judgeSomkeCars(frame, rectTrucksRear[i], frameNumber, isCatch);
-					rectangle(frame, rectTrucksRear[i], Scalar(0, 0, 255), 3);//在frame上画红框
+					imgSmokyNum++;
+					//method.judgeSomkeCars(frame, rectTrucksRear[i], frameNumber, isCatch);
+					std::string carImgName = ResultPath + "\\" + srcVideoName + "\\"+ std::to_string(res) +"\\" + std::to_string(imgSmokyNum) + ".png";
+					imwrite(carImgName, tmp);
+
+					if(DISPLAY) rectangle(frame, rectTrucksRear[i], Scalar(0, 0, 255), 3);//在frame上画红框
 				}
 				else {
-					rectangle(frame, rectTrucksRear[i], Scalar(0, 255, 255), 3);//在frame上也画黄框
+
+					imgNonSmokyNum++;
+					std::string carImgName = ResultPath + "\\" + srcVideoName + "\\" + std::to_string(res) + "\\" + std::to_string(imgNonSmokyNum) + ".png";
+					imwrite(carImgName, tmp);
+					if(DISPLAY) rectangle(frame, rectTrucksRear[i], Scalar(0, 255, 255), 3);//在frame上也画黄框
 				}
 			}
-			carDetection.afterprocess(frame);
+			if(DISPLAY) carDetection.afterprocess(frame);
 			if(DISPLAY) carDetection.efficiencyInformation(frame);
 
 #ifdef SaveVideo
@@ -148,6 +172,8 @@ int main(int argc, char** argv)
 		writer.release();
 		std::cout << "目前检测到的黑烟车数量为 " << method.getBlackCarNum() << std::endl;
 #endif 
+		std::cout << "目前已制作的的1样本数量为 " << imgSmokyNum << std::endl;
+		std::cout << "目前已制作的的0样本数量为 " << imgNonSmokyNum << std::endl;
 	}
 	return 0;
 }
