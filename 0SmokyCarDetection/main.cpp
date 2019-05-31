@@ -7,7 +7,7 @@
 
 //#define SaveVideo
 constexpr bool DISPLAY = 0;//是否显示的开关
-constexpr int SAMPLE = 20;//获取样本的间隔帧
+constexpr int SAMPLE = 25;//获取样本的间隔帧
 constexpr bool RESIZE = 1;//是否RESIZE的开关
 constexpr int RESIZECOL = 224; //宽度
 constexpr int RESIZEROW = 224; //高度
