@@ -8,7 +8,7 @@
 //#define SaveVideo
 constexpr bool DISPLAY = 0;//是否显示的开关
 constexpr int SAMPLE = 25;//获取样本的间隔帧
-constexpr bool RESIZE = 1;//是否RESIZE的开关
+constexpr bool RESIZE = 0;//是否RESIZE的开关
 constexpr int RESIZECOL = 224; //宽度
 constexpr int RESIZEROW = 224; //高度
 
@@ -17,8 +17,8 @@ int main(int argc, char** argv)
 	Method method;
 	std::pair<Backend,Target> p1 = (getAvailableBackends())[0];
 	std::cout << p1.first<< "   "<< p1.second<< std::endl; //这里可修改
-	std::string SrcPath = "E:\\video1";
-	std::string ResultPath = "D:\\Result-224";
+	std::string SrcPath = "E:\\video-1004";
+	std::string ResultPath = "D:\\Result-1004";
 	//std::string inputVideo = findFile("E:/2018-10-02_170017.mp4");
 
 	std::string objDetecMethod = "mobileNet_SSD"; //"Yolo_tiny_416_N23";
