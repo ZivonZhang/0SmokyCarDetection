@@ -7,7 +7,7 @@
 
 //#define SaveVideo
 constexpr bool DISPLAY = 0;//是否显示的开关
-constexpr int SAMPLE = 25;//获取样本的间隔帧
+constexpr int SAMPLE = 15;//获取样本的间隔帧
 constexpr bool RESIZE = 0;//是否RESIZE的开关
 constexpr int RESIZECOL = 224; //宽度
 constexpr int RESIZEROW = 224; //高度
@@ -17,8 +17,8 @@ int main(int argc, char** argv)
 	Method method;
 	std::pair<Backend,Target> p1 = (getAvailableBackends())[0];
 	std::cout << p1.first<< "   "<< p1.second<< std::endl; //这里可修改
-	std::string SrcPath = "E:\\video-1004";
-	std::string ResultPath = "D:\\Result-1004";
+	std::string SrcPath = "E:\\video1";
+	std::string ResultPath = "D:\\Result";
 	//std::string inputVideo = findFile("E:/2018-10-02_170017.mp4");
 
 	std::string objDetecMethod = "mobileNet_SSD"; //"Yolo_tiny_416_N23";
@@ -123,7 +123,7 @@ int main(int argc, char** argv)
 				{
 					imgSmokyNum++;
 					//method.judgeSomkeCars(frame, rectTrucksRear[i], frameNumber, isCatch);
-					std::string carImgName = ResultPath + "\\" + srcVideoName + "\\"+ std::to_string(res) +"\\" + std::to_string(imgSmokyNum) + ".png";
+					std::string carImgName = ResultPath + "\\" + srcVideoName + "\\"+ std::to_string(res) +"\\" + std::to_string(imgSmokyNum) + ".jpg";
 					imwrite(carImgName, tmp);
 
 					if(DISPLAY) rectangle(frame, rectTrucksRear[i], Scalar(0, 0, 255), 3);//在frame上画红框
@@ -131,7 +131,7 @@ int main(int argc, char** argv)
 				else {
 
 					imgNonSmokyNum++;
-					std::string carImgName = ResultPath + "\\" + srcVideoName + "\\" + std::to_string(res) + "\\" + std::to_string(imgNonSmokyNum) + ".png";
+					std::string carImgName = ResultPath + "\\" + srcVideoName + "\\" + std::to_string(res) + "\\" + std::to_string(imgNonSmokyNum) + ".jpg";
 					imwrite(carImgName, tmp);
 					if(DISPLAY) rectangle(frame, rectTrucksRear[i], Scalar(0, 255, 255), 3);//在frame上也画黄框
 				}
