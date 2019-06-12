@@ -15,11 +15,11 @@ int main(int argc, char** argv)
 	std::pair<Backend,Target> p1 = (getAvailableBackends())[0];
 	std::cout << p1.first<< "   "<< p1.second<< std::endl; //这里可修改
 	std::string SrcPath = "E:\\video-1004";
-	std::string ResultPath = "D:\\Result";
+	std::string ResultPath = "D:\\Result-test";
 	//std::string inputVideo = findFile("E:/2018-10-02_170017.mp4");
 
 	std::string objDetecMethod = "mobileNet_SSD"; //"Yolo_tiny_416_N23";
-	std::string imgClassifyMethod = "CatsDogs190524";// "original version";
+	std::string imgClassifyMethod = "mobilenet224";// "original version";
 
 	int nCols = 1024; //1280;// 保存视频尺寸
 	int	nRows = 768; //720;// 

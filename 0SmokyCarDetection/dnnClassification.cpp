@@ -34,7 +34,16 @@ dnnClassification::dnnClassification(std::string method)
 		inpWidth = 100;
 		inpHeight = 100;
 	}
+	if (method == "mobilenet224") {
+		model = findFile("F:/0SmokyCarDetection/model/saved_model.pb");
+		config = "";
 
+		scale = 1.0;
+		mean = { 0, 0, 0 };
+		swapRB = false;
+		inpWidth = 224;
+		inpHeight = 224;
+	}
 
 	if (!classesFile.empty())	// Open file with classes names.
 	{
@@ -50,7 +59,12 @@ dnnClassification::dnnClassification(std::string method)
 	}
 
 	//! [Read and initialize network]
-	net = readNet(model, config, framework);
+	if ("" == config) {
+		net = readNetFromTensorflow(model);
+	}
+	else {
+		net = readNet(model, config, framework);
+	}
 	net.setPreferableBackend(backendId);
 	net.setPreferableTarget(targetId);
 	//! [Read and initialize network]
