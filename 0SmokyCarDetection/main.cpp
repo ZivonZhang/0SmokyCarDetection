@@ -17,8 +17,8 @@ int main(int argc, char** argv)
 	Method method;
 	std::pair<Backend,Target> p1 = (getAvailableBackends())[0];
 	std::cout << p1.first<< "   "<< p1.second<< std::endl; //这里可修改
-	std::string SrcPath = "E:\\video1";
-	std::string ResultPath = "D:\\Result";
+	std::string SrcPath = "E:\\video-1004";
+	std::string ResultPath = "D:\\Result-beijing";
 	//std::string inputVideo = findFile("E:/2018-10-02_170017.mp4");
 
 	std::string objDetecMethod = "mobileNet_SSD"; //"Yolo_tiny_416_N23";
