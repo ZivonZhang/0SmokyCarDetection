@@ -262,3 +262,4 @@ __pycache__/
 /enc_temp_folder
 *.caffemodel
 /model/saved_model.pb
+/model

@@ -35,11 +35,11 @@ dnnClassification::dnnClassification(std::string method)
 		inpHeight = 100;
 	}
 	if (method == "mobilenet224") {
-		model = findFile("F:/0SmokyCarDetection/model/saved_model.pb");
+		model = findFile("F:/0SmokyCarDetection/model/mobilev1_224_epoch_5_9250.pb");
 		config = "";
 
-		scale = 1.0;
-		mean = { 0, 0, 0 };
+		scale = 0.007843;
+		mean = { 127.5, 127.5, 127.5 };
 		swapRB = false;
 		inpWidth = 224;
 		inpHeight = 224;

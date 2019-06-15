@@ -6,7 +6,7 @@
 //#include "dirent.h"
 
 #define SaveVideo
-constexpr bool DISPLAY = 0;//是否显示的开关
+constexpr bool DISPLAY = 1;//是否显示的开关
 constexpr bool SAMPLE = 0;//是否获取样本的开关
 
 int main(int argc, char** argv)
