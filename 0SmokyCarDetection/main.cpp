@@ -11,6 +11,22 @@ constexpr int SAMPLE = 15;//获取样本的间隔帧
 constexpr bool RESIZE = 0;//是否RESIZE的开关
 constexpr int RESIZECOL = 224; //宽度
 constexpr int RESIZEROW = 224; //高度
+/*
+int main(int argc, char** argv) {
+	std::string imgClassifyMethod = "mobilenet224";//"CatsDogs190524";// "original version";
+	dnnClassification smokyClassfy(imgClassifyMethod);
+	std::cout << imgClassifyMethod << "黑烟分类初始化  OK." << std::endl;
+	int res = 0;
+	float classConfid = 0.0;
+
+	std::string imgpath = "D:/Result-0531/16-29-44明显/1/38.png";
+	Mat tmp = imread(imgpath);
+	if (DISPLAY) imshow("tmp", tmp);
+	smokyClassfy.classify(tmp, res, classConfid);
+	std::cout << res << std::endl; //这里可修改
+}
+
+*/
 
 int main(int argc, char** argv)
 {

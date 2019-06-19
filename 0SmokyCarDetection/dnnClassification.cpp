@@ -85,12 +85,28 @@ void dnnClassification::classify(Mat &region ,int &classNum , float &classConfid
 	//! [Get a class with a highest score]
 	Point classIdPoint;
 	double confidence;
+	if(1 != *prob.size){//Ô­Çé¿ö
 	minMaxLoc(prob.reshape(1, 1), 0, &confidence, 0, &classIdPoint);
 	int classId = classIdPoint.x;
 	//! [Get a class with a highest score]
+	
 	classNum = classId;
 	classConfid = confidence;
 	//std::string label = format("%s: %.4f", (classes.empty() ? format("Class #%d", classId).c_str() :classes[classId].c_str()),confidence);
+	}
+	else {
+		//std::array<float> temp = prob.reshape(1, 1);
+		//float temp = prob(0, 0, CV_32FC1);
+		float temp=prob.at<float>(0, 0);
+		if (temp > 0.5) {
+			classNum = 1;
+			
+		}
+		else {
+			classNum = 0;
+		}
+		classConfid = temp;
+	}
 }
 
 void dnnClassification::efficiencyInformation(Mat & frame)
