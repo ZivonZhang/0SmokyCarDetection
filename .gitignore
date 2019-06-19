@@ -262,3 +262,4 @@ __pycache__/
 /enc_temp_folder
 *.caffemodel
 /model/mobile224_epoch_13_9266.pb
+/model

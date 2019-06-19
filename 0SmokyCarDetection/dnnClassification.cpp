@@ -36,6 +36,17 @@ dnnClassification::dnnClassification(std::string method)
 	}
 
 
+	if (method == "mobilenet224") {
+		model = findFile("F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pb");
+		config = "F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pbtxt";
+
+		scale = 0.007843;
+		mean = { 127.5, 127.5, 127.5 };
+		swapRB = false;
+		inpWidth = 224;
+		inpHeight = 224;
+	}
+
 	if (!classesFile.empty())	// Open file with classes names.
 	{
 		std::string file = classesFile;
