@@ -35,8 +35,8 @@ dnnClassification::dnnClassification(std::string method)
 		inpHeight = 100;
 	}
 	if (method == "mobilenet224") {
-		model = findFile("F:/0SmokyCarDetection/model/mobilev1_224_epoch_5_9250.pb");
-		config = "";
+		model = findFile("F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pb");
+		config = "F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pbtxt";
 
 		scale = 0.007843;
 		mean = { 127.5, 127.5, 127.5 };

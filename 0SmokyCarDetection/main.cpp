@@ -101,8 +101,9 @@ int main(int argc, char** argv)
 			for (int i = 0; i < rectTrucksRear.size(); i++)
 			{
 				Mat tmp = frame(rectTrucksRear[i]);
-				if(DISPLAY) imshow("tmp", tmp);
 				smokyClassfy.classify(tmp, res, classConfid);
+				if (DISPLAY) smokyClassfy.efficiencyInformation(tmp);
+				if (DISPLAY) imshow("tmp", tmp);
 				if (res == 1)
 				{
 					method.judgeSomkeCars(frame, rectTrucksRear[i], frameNumber, isCatch);
