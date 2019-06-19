@@ -94,7 +94,7 @@ void dnnClassification::classify(Mat &region ,int &classNum , float &classConfid
 	classConfid = confidence;
 	//std::string label = format("%s: %.4f", (classes.empty() ? format("Class #%d", classId).c_str() :classes[classId].c_str()),confidence);
 	}
-	else {
+	else {//输出为1维的情况进行2分类
 		//std::array<float> temp = prob.reshape(1, 1);
 		//float temp = prob(0, 0, CV_32FC1);
 		float temp=prob.at<float>(0, 0);

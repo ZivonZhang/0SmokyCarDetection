@@ -135,11 +135,12 @@ int main(int argc, char** argv)
 				if (RESIZE) {
 					cv::resize(tmp, tmp, Size(RESIZECOL, RESIZEROW));  //RESIZE的大小设置处
 				}
-				if (res == 1)
+				if (classConfid > 0.5)
 				{
 					imgSmokyNum++;
 					//method.judgeSomkeCars(frame, rectTrucksRear[i], frameNumber, isCatch);
-					std::string carImgName = ResultPath + "\\" + srcVideoName + "\\"+ std::to_string(res) +"\\" + std::to_string(imgSmokyNum) + ".jpg";
+					std::string carImgName = ResultPath + "\\" + srcVideoName + "\\"+ std::to_string(res)
+						+"\\" + std::to_string(imgSmokyNum)+ "_"+ std::to_string(classConfid) + ".jpg";
 					imwrite(carImgName, tmp);
 
 					if(DISPLAY) rectangle(frame, rectTrucksRear[i], Scalar(0, 0, 255), 3);//在frame上画红框
@@ -147,7 +148,8 @@ int main(int argc, char** argv)
 				else {
 
 					imgNonSmokyNum++;
-					std::string carImgName = ResultPath + "\\" + srcVideoName + "\\" + std::to_string(res) + "\\" + std::to_string(imgNonSmokyNum) + ".jpg";
+					std::string carImgName = ResultPath + "\\" + srcVideoName + "\\" + std::to_string(res) 
+						+ "\\" + std::to_string(imgNonSmokyNum) + "_" + std::to_string(classConfid)+".jpg";
 					imwrite(carImgName, tmp);
 					if(DISPLAY) rectangle(frame, rectTrucksRear[i], Scalar(0, 255, 255), 3);//在frame上也画黄框
 				}
