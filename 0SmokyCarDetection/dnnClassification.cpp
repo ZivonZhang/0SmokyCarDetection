@@ -42,7 +42,7 @@ dnnClassification::dnnClassification(std::string method)
 
 		scale = 0.007843;
 		mean = { 127.5, 127.5, 127.5 };
-		swapRB = false;
+		swapRB = true;  //
 		inpWidth = 224;
 		inpHeight = 224;
 	}
