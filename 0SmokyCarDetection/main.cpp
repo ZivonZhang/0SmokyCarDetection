@@ -7,10 +7,11 @@
 
 //#define SaveVideo
 constexpr bool DISPLAY = 0;//是否显示的开关
-constexpr int SAMPLE = 25;//获取样本的间隔帧
+constexpr int SAMPLE = 15;//获取样本的间隔帧
 constexpr bool RESIZE = 0;//是否RESIZE的开关
 constexpr int RESIZECOL = 224; //宽度
 constexpr int RESIZEROW = 224; //高度
+
 /*
 int main(int argc, char** argv) {
 	std::string imgClassifyMethod = "mobilenet224";//"CatsDogs190524";// "original version";
@@ -33,8 +34,8 @@ int main(int argc, char** argv)
 	Method method;
 	std::pair<Backend,Target> p1 = (getAvailableBackends())[0];
 	std::cout << p1.first<< "   "<< p1.second<< std::endl; //这里可修改
-	std::string SrcPath = "E:\\video-1004";
-	std::string ResultPath = "D:\\Result-mobilenet-all";
+	std::string SrcPath = "Y:\\Video\\sample";//"E:\\video1";
+	std::string ResultPath = "Y:\\sample0622";
 	//std::string inputVideo = findFile("E:/2018-10-02_170017.mp4");
 
 	std::string objDetecMethod = "mobileNet_SSD"; //"Yolo_tiny_416_N23";
@@ -47,6 +48,7 @@ int main(int argc, char** argv)
 	std::cout << objDetecMethod << "车型目标检测初始化  OK." << std::endl;
 	dnnClassification smokyClassfy(imgClassifyMethod);
 	std::cout << imgClassifyMethod << "黑烟分类初始化  OK." << std::endl;
+	std::cout << "黑烟分类器置信度阈值设定为  " << smokyClassfy.ConfidThreshold << std::endl;
 	//std::cout <<  "连续性阈值设定为  " << method.ContinuityThreshold << std::endl;
 	
 	// Create a window

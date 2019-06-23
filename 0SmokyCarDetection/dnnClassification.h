@@ -18,6 +18,8 @@ public:
 	//void afterprocess(Mat &frame);
 	void efficiencyInformation(Mat &frame);
 
+	double ConfidThreshold = 0.5;
+
 private:
 
 	float scale = 0.007843;

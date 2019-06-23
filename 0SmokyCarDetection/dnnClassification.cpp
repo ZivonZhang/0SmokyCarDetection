@@ -98,7 +98,7 @@ void dnnClassification::classify(Mat &region ,int &classNum , float &classConfid
 		//std::array<float> temp = prob.reshape(1, 1);
 		//float temp = prob(0, 0, CV_32FC1);
 		float temp=prob.at<float>(0, 0);
-		if (temp > 0.5) {
+		if (temp > ConfidThreshold) {
 			classNum = 1;
 			
 		}
