@@ -35,12 +35,12 @@ dnnClassification::dnnClassification(std::string method)
 		inpHeight = 100;
 	}
 	if (method == "mobilenet224") {
-		model = findFile("F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pb");
-		config = "F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pbtxt";
+		model = findFile("F:/0SmokyCarDetection/model/mobile0627_loss_1838_17_optimized_graph.pb");
+		config = "F:/0SmokyCarDetection/model/mobile0627_loss_1838_17_optimized_graph.pbtxt";
 
 		scale = 0.007843;
 		mean = { 127.5, 127.5, 127.5 };
-		swapRB = false;
+		swapRB = true;
 		inpWidth = 224;
 		inpHeight = 224;
 	}
@@ -88,12 +88,28 @@ void dnnClassification::classify(Mat &region ,int &classNum , float &classConfid
 	//! [Get a class with a highest score]
 	Point classIdPoint;
 	double confidence;
-	minMaxLoc(prob.reshape(1, 1), 0, &confidence, 0, &classIdPoint);
-	int classId = classIdPoint.x;
-	//! [Get a class with a highest score]
-	classNum = classId;
-	classConfid = confidence;
-	//std::string label = format("%s: %.4f", (classes.empty() ? format("Class #%d", classId).c_str() :classes[classId].c_str()),confidence);
+	if (1 != *prob.size) { //输出不为一维的情况
+		minMaxLoc(prob.reshape(1, 1), 0, &confidence, 0, &classIdPoint);
+		int classId = classIdPoint.x;
+		//! [Get a class with a highest score]
+		classNum = classId;
+		classConfid = confidence;
+		//std::string label = format("%s: %.4f", (classes.empty() ? format("Class #%d", classId).c_str() :classes[classId].c_str()),confidence);
+	}
+	else {
+		//std::array<float> temp = prob.reshape(1, 1);
+		//float temp = prob(0, 0, CV_32FC1);
+		float temp = prob.at<float>(0, 0);
+		if (temp > ConfidThreshold) {
+			classNum = 1;
+
+		}
+		else {
+			classNum = 0;
+		}
+		classConfid = temp;
+	}
+	
 }
 
 void dnnClassification::efficiencyInformation(Mat & frame)

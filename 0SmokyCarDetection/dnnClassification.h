@@ -17,6 +17,7 @@ public:
 	//void postprocess(Mat &frame);
 	//void afterprocess(Mat &frame);
 	void efficiencyInformation(Mat &frame);
+	double ConfidThreshold = 0.5;
 
 private:
 
