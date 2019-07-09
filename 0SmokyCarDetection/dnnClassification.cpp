@@ -45,6 +45,28 @@ dnnClassification::dnnClassification(std::string method)
 		inpHeight = 224;
 	}
 
+	if (method == "mobilenetV2-224-0709") {
+		model = findFile("F:/0SmokyCarDetection/model/mobile0709_loss_0976_31_optimized_graph.pb");
+		config = "F:/0SmokyCarDetection/model/mobile0709_loss_0976_31_optimized_graph.pbtxt";
+
+		scale = 1.0/255;
+		mean = { 0, 0, 0 };
+		swapRB = true;
+		inpWidth = 224;
+		inpHeight = 224;
+	}
+
+	if (method == "mobilenet-before") {
+		model = findFile("F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pb");
+		config = "F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pbtxt";
+
+		scale = 0.007843;
+		mean = { 127.5, 127.5, 127.5 };
+		swapRB = true;
+		inpWidth = 224;
+		inpHeight = 224;
+	}
+
 	if (!classesFile.empty())	// Open file with classes names.
 	{
 		std::string file = classesFile;
