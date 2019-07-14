@@ -45,11 +45,21 @@ dnnClassification::dnnClassification(std::string method)
 		inpHeight = 224;
 	}
 
-	if (method == "mobilenetV2-224-0709") {
-		model = findFile("F:/0SmokyCarDetection/model/mobile0709_loss_0976_31_optimized_graph.pb");
-		config = "F:/0SmokyCarDetection/model/mobile0709_loss_0976_31_optimized_graph.pbtxt";
+	if (method == "mobilenetV2-224-0713") {
+		model = findFile("F:/0SmokyCarDetection/model/mobilev2_1076_9535_loss_7_optimized_graph.pb");
+		//config = findFile("F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pbtxt");
 
 		scale = 1.0/255;
+		mean = { 0, 0, 0 };
+		swapRB = true;
+		inpWidth = 224;
+		inpHeight = 224;
+	}
+	if (method == "mobilenet0713-best") {
+		model = findFile("F:/0SmokyCarDetection/model/mobile_0713_best.pb");
+		//config = findFile("F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pbtxt");
+
+		scale = 1.0 / 255;
 		mean = { 0, 0, 0 };
 		swapRB = true;
 		inpWidth = 224;
