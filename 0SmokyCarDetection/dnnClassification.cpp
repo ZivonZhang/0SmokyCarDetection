@@ -65,6 +65,16 @@ dnnClassification::dnnClassification(std::string method)
 		inpWidth = 224;
 		inpHeight = 224;
 	}
+	if (method == "mobilenet0715-best") {
+		model = findFile("F:/0SmokyCarDetection/model/mobile_0715_best.pb");
+		//config = findFile("F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pbtxt");
+
+		scale = 1.0 / 255;
+		mean = { 0, 0, 0 };
+		swapRB = true;
+		inpWidth = 224;
+		inpHeight = 224;
+	}
 
 	if (method == "mobilenet-before") {
 		model = findFile("F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pb");

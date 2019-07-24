@@ -15,18 +15,18 @@ int main(int argc, char** argv)
 	std::pair<Backend,Target> p1 = (getAvailableBackends())[0];
 	std::cout << p1.first<< "   "<< p1.second<< std::endl; //这里可修改
 	std::string SrcPath = "Y:\\Video\\北京测试视频\\1004";
-	std::string ResultPath = "Y:\\result\\mobilenet-best-0714";
+	std::string ResultPath = "Y:\\result\\mobilenet0715-best";
 	//std::string inputVideo = findFile("E:/2018-10-02_170017.mp4");
 
 	std::string objDetecMethod = "mobileNet_SSD"; //"Yolo_tiny_416_N23";
-	std::string imgClassifyMethod = "mobilenet0713-best";// "original version";
+	std::string imgClassifyMethod = "mobilenet0715-best";// "original version";
 
 	int nCols = 1024; //1280;// 保存视频尺寸
 	int	nRows = 768; //720;// 
 
 	dnnObject carDetection(objDetecMethod);
 	std::cout << objDetecMethod << "车型目标检测初始化  OK." << std::endl;
-	dnnClassification smokyClassfy(imgClassifyMethod);
+	dnnClassification  smokyClassfy(imgClassifyMethod);
 	std::cout << imgClassifyMethod << "黑烟分类初始化  OK." << std::endl;
 	std::cout <<  "连续性阈值设定为  " << method.ContinuityThreshold << std::endl;
 	
