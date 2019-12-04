@@ -10,9 +10,19 @@ dnnClassification::dnnClassification(std::string method)
 
 		scale = 1.0;
 		mean = { 0, 0, 0 };
-		swapRB = false;
+		swapRB = true;
 		inpWidth = 100;
 		inpHeight = 100;
+	}
+	if (method == "Tao") {
+		model = findFile("F:/0SmokyCarDetection/model/tcnn3.caffemodel");
+		config = findFile("F:/0SmokyCarDetection/model/train_val_tcnn3.prototxt");
+
+		scale = 1.0;
+		mean = { 0, 0, 0 };
+		swapRB = true;
+		inpWidth = 227;
+		inpHeight = 227;
 	}
 	if (method == "CatsDogs190524") {
 		model = findFile("F:/0SmokyCarDetection/model/catdognet_solver_iter_400.caffemodel");
@@ -20,7 +30,7 @@ dnnClassification::dnnClassification(std::string method)
 
 		scale = 1.0;
 		mean = { 0, 0, 0 };
-		swapRB = false;
+		swapRB = true;
 		inpWidth = 100;
 		inpHeight = 100;
 	}
@@ -30,7 +40,7 @@ dnnClassification::dnnClassification(std::string method)
 
 		scale = 1.0;
 		mean = { 0, 0, 0 };
-		swapRB = false;
+		swapRB = true;
 		inpWidth = 100;
 		inpHeight = 100;
 	}
@@ -87,6 +97,17 @@ dnnClassification::dnnClassification(std::string method)
 		inpHeight = 224;
 	}
 
+	if (method == "mobilenet0731") {
+		model = findFile("F:/0SmokyCarDetection/model/20190731-132751.pb");
+		//config = "F:/0SmokyCarDetection/model/mobileV1_avg_6_9570_optimized_graph.pbtxt";
+
+		scale = 1.0 / 255;
+		mean = { 0, 0, 0 };
+		swapRB = true;
+		inpWidth = 224;
+		inpHeight = 224;
+	}
+	
 	if (!classesFile.empty())	// Open file with classes names.
 	{
 		std::string file = classesFile;

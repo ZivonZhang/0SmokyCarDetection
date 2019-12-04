@@ -10,9 +10,9 @@ using namespace cv;
 class Method
 {
 public:
-	Method(){};
+	Method(std::string R);
 	~Method(){};
-	
+	 
 
 	void judgeSomkeCars(Mat &src, Rect &rect, int num, bool &isCatch);
 
@@ -22,9 +22,15 @@ public:
 	int out_count = 0;  //输出的车尾部图片的编号
 	char file_name[100];
 	int trunkNum = 0;
-	int ContinuityThreshold = 6;
+	int ContinuityThreshold = 8;
+	std::queue<Mat> area_Smoke;
+	std::string nowFolderPath;
 
 private:
+	void clear(std::queue<Mat>& q);
+
+	std::string ResultPath;
+
 	int count = 0; // 记录没发生变化的图像的帧数
 
 	std::vector<Point2f> rectCenters;  //  记录每个检测到的黑烟车的框的中心点

@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#include <queue>
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -20,6 +21,7 @@
 
 #include "tool.h"
 #include "dnnObject.h"
+
 
 
 

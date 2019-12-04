@@ -1,25 +1,27 @@
 #include "stdafx.h"
 #include "dnnClassification.h"
 #include "method.h"
-#include <queue>
+
 //#include <filesystem>
 //#include "dirent.h"
 
-#define SaveVideo
+//#define SaveVideo
 constexpr bool DISPLAY = 0;//是否显示的开关
 constexpr bool SAMPLE = 0;//是否获取样本的开关
+constexpr bool SAVE_IMAGES = true;//是否获取待检的序列图
 
 int main(int argc, char** argv)
 {
-	Method method;
 	std::pair<Backend,Target> p1 = (getAvailableBackends())[0];
 	std::cout << p1.first<< "   "<< p1.second<< std::endl; //这里可修改
-	std::string SrcPath = "Y:\\Video\\北京测试视频\\1004";
-	std::string ResultPath = "Y:\\result\\mobilenet0715-best";
+	std::string SrcPath = "Z:\\Video\\北京测试视频";//"Y:\\Video\\北京测试视频\\temp";
+	std::string ResultPath = "Z:\\result\\Groupmeeting1211";
 	//std::string inputVideo = findFile("E:/2018-10-02_170017.mp4");
 
+	Method method(ResultPath);
+	 
 	std::string objDetecMethod = "mobileNet_SSD"; //"Yolo_tiny_416_N23";
-	std::string imgClassifyMethod = "mobilenet0715-best";// "original version";
+	std::string imgClassifyMethod = "mobilenet0731";//"CatsDogs190524";// 
 
 	int nCols = 1024; //1280;// 保存视频尺寸
 	int	nRows = 768; //720;// 
@@ -61,6 +63,10 @@ int main(int argc, char** argv)
 
 		std::string FolderPath = ResultPath + "\\" + srcVideoName;
 		CreateDir(FolderPath.c_str());
+
+		std::string FolderImgPath = FolderPath + "\\" + "smokyIMG";
+		CreateDir(FolderImgPath.c_str());
+		method.nowFolderPath = FolderImgPath;
 
 		// Open a video file or an image file or a camera stream.
 		VideoCapture cap;
@@ -136,7 +142,7 @@ int main(int argc, char** argv)
 				}
 				smokyCarWriter << frameSave.front();
 				videoFrames++;
-				//if (videoFrames > 100 || frameNumber == nframes)
+				//if (videoFrames > 100 || frameNumber == nframes) 
 				if (videoFrames > 100)
 				{
 					smokyCarWriter.release();
