@@ -26,6 +26,7 @@ public:
 
 
 private:
+	void dnnObject::changeScale(Rect &carbox, float scale);
 	std::vector<int> indices;
 	float confThreshold = 0.35;
 	float nmsThreshold = 0.4;

@@ -50,7 +50,7 @@ void Method::judgeSomkeCars(Mat &src, Rect &rect, int frameNum, bool &isCatch)
 
 	while ( sameNum >= ContinuityThreshold && !area_Smoke.empty()) {
 		out_count++;
-		sprintf(filename, "/Smoky%03d-%02d.jpg", blackCarNum, out_count);
+		sprintf(filename, "/Smoky%03d-%02d.png", blackCarNum, out_count);
 		imwrite(nowFolderPath + filename, area_Smoke.front());
 		area_Smoke.pop();
 	}

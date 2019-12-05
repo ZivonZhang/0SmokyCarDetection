@@ -5,7 +5,7 @@
 //#include <filesystem>
 //#include "dirent.h"
 
-//#define SaveVideo
+#define SaveVideo
 constexpr bool DISPLAY = 0;//是否显示的开关
 constexpr bool SAMPLE = 0;//是否获取样本的开关
 constexpr bool SAVE_IMAGES = true;//是否获取待检的序列图

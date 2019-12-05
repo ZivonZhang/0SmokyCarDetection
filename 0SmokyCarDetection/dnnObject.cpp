@@ -264,12 +264,15 @@ void dnnObject::getTrucksRear(Mat &frame, std::vector<Rect> &out_rects) {
 						rect2.width = rect1.width;
 						//rect2.height = rect1.height / 2;
 						rect2.height = rect2.width;//取方形区域
-						if ((rect2.y + rect2.height) > frame.rows)//防止框到外面
+						//rect2即待检区域
+						changeScale(rect2, 1.15);
+						//将区域扩大到1.2倍
+						if ((rect2.y + rect2.height) >= frame.rows  || (rect2.x + rect2.width)>=frame.cols || rect2.x<0|| rect2.y<0)//防止框到外面
 						{
 							//rect2.height = frame.rows - rect2.y - 1;   //扁的也送入检测
 							continue;//直接舍弃这个框
 						}
-						if (rect2.y  < 0.14*frame.rows)//碰到上方文字则不检测
+						if (rect2.y  < 0.13*frame.rows)//碰到上方文字则不检测
 						{
 							//rect2.height = frame.rows - rect2.y - 1;   //扁的也送入检测
 							continue;//直接舍弃这个框
@@ -282,6 +285,16 @@ void dnnObject::getTrucksRear(Mat &frame, std::vector<Rect> &out_rects) {
 		}
 	}
 
+}
+
+void dnnObject::changeScale(Rect &carbox, float scale) {
+	Point center;
+	center.x = carbox.x + carbox.width / 2.0;
+	center.y =	carbox.y + carbox.height / 2.0;
+	carbox.width *= scale;
+	carbox.height *= scale;
+	carbox.x = center.x - carbox.width / 2;
+	carbox.y = center.y - carbox.height / 2;
 }
 
 std::vector<int> dnnObject::getCar()
@@ -338,6 +351,8 @@ Rect dnnObject::getCarRear(Rect carbox)
 
 	return carRear;
 }
+
+
 
 Mat dnnObject::RectToMat(Rect rect,Mat frame) {
 		;
